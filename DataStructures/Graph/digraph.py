@@ -49,6 +49,24 @@ def vertices(my_graph):
 
 
 edges_vertex()
-get_vertex()
-update_vertex_info()
-get_vertex_information(
+
+def get_vertex(my_graph, vid):
+        if vid not in my_graph["vertices"]:
+            return None
+        else:
+            return my_graph["vertices"][vid]["info"]
+            
+
+def update_vertex_info(my_graph, vid, new_info):
+    if vid not in my_graph["vertices"]:
+        return False
+    else:
+        return my_graph["vertices"][vid]["new_info"]
+    
+    
+def get_vertex_information (my_graph, vid):
+    if vid not in my_graph["vertices"]:
+        return None
+    else:
+        return my_graph["vertices"][vid]["info"]
+    
