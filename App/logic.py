@@ -144,6 +144,9 @@ def total_connections(analyzer):
     Total de enlaces entre las paradas
     """
     # TODO: Retorne el número de arcos del grafo de conexiones
+    grafo = analyzer["connections"]
+    
+    return G.size(grafo)
 
 
 # Funciones para la medición de tiempos

@@ -15,7 +15,7 @@ def add_edge():
     pass
 def contains_vertex():
     pass
-def order(my_graph):
+def order(my_graph): #Numero de nodos del grafo
     order = mlp.size(my_graph)
     return order
 
@@ -24,11 +24,11 @@ def size(my_graph):#numero de arcos del grafo
     s = 0
     for llave in vertices:
         vertice = mlp.get(my_graph,llave)
-        adyacentes = v.get_adjacents(vertice)
+        adyacentes = v.get_adjacents(vertice) #mapa de adyacentes
         s += mlp.size(adyacentes)
     return s
 
-def degree(my_graph, llave):
+def degree(my_graph, llave): #Numero de arcos adyacentes al vertice 
     vertice = mlp.get(my_graph, llave)
     degree = v.degree(vertice)
     return degree
