@@ -36,12 +36,11 @@ def next_prime(n):
         :return: El siguiente número primo mayor a n
     """
     found = False
-    next_p = 1
+    next_p = int(n)
     # Base case
     if (n <= 1):
         next_p = 2
         found = True
-    next_p = int(n)
     # Loop continuously until is_prime returns
     # True for a number greater than n
     while(not found):
