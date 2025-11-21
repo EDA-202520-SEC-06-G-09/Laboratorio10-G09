@@ -7,7 +7,7 @@ import random
 def new_map(num_elements, load_factor, prime=109345121):
     llave = None
     valor = None
-    capacidad =  mf.next_prime(int(num_elements/ load_factor))   
+    capacidad =  mf.next_prime(int(num_elements // load_factor))   
     scale = random.randint(1, prime - 1)
     shift = random.randint(0, prime - 1)
     
