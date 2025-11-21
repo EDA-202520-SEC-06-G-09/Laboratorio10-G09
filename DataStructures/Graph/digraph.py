@@ -36,14 +36,10 @@ def update_vertex_info(my_graph, key_u, new_info):
 
 def add_edge(my_graph, key_u, key_v, weight=1):
     
-    if not mlp.contains(my_graph["vertices"], key_u):
+    if not mlp.contains(my_graph["vertices"], key_u) and not mlp.contains(my_graph["vertices"], key_v):
         raise Exception("El vertice u no existe")
 
-    if not mlp.contains(my_graph["vertices"], key_v):
-        raise Exception("El vertice v no existe")
-
     vert_u = mlp.get(my_graph["vertices"], key_u)
-    vert_v = mlp.get(my_graph["vertices"], key_v)
 
     adj_u = vert_u["adjacents"]
 
@@ -56,6 +52,7 @@ def add_edge(my_graph, key_u, key_v, weight=1):
         my_graph["num_edges"] += 1
 
     return my_graph
+
 
 def contains_vertex(my_graph, key_u):
    return mlp.contains(my_graph["vertices"], key_u)
