@@ -6,41 +6,16 @@ from DataStructures.Graph import vertex as v
 from DataStructures.Graph import edge as e
 
 
-def new_graph(order):
-    num_edges = 0
-    vertex = mlp.new_map(order, 0.5, prime=109345121)
-    
-    graph = {'vertices': vertex,
-             'num_edges': num_edges}
-    
-    return graph
 
-def insert_vertex(my_graph, key_u, info_u):
-    
-    if mlp.contains(my_graph["vertices"], key_u) == True:
-        update_vertex_info(my_graph, key_u, info_u)
-    else:
-        vertice_n = v.new_vertex(key_u, info_u)
-        mlp.put(my_graph['vertices'], key_u, vertice_n)
-    
-    return my_graph 
-     
-            
-def update_vertex_info(my_graph, key_u, new_info):
-    
-    vertice = mlp.get(my_graph["vertices"], key_u)
-    vertice = new_info
-    mlp.put(my_graph["vertices"], key_u, vertice)
-    
-    return my_graph
-    
-'''  
+def new_graph():
+    pass
+def insert_vertex():
+    pass
 def add_edge():
     pass
 def contains_vertex():
     pass
-'''
-def order(my_graph):
+def order(my_graph): #Numero de nodos del grafo
     order = mlp.size(my_graph)
     return order
 
@@ -49,11 +24,11 @@ def size(my_graph):#numero de arcos del grafo
     s = 0
     for llave in vertices:
         vertice = mlp.get(my_graph,llave)
-        adyacentes = v.get_adjacents(vertice)
+        adyacentes = v.get_adjacents(vertice) #mapa de adyacentes
         s += mlp.size(adyacentes)
     return s
 
-def degree(my_graph, llave):
+def degree(my_graph, llave): #Numero de arcos adyacentes al vertice 
     vertice = mlp.get(my_graph, llave)
     degree = v.degree(vertice)
     return degree
@@ -72,9 +47,24 @@ def vertices(my_graph):
     return lista
 
 
-"""
-edges_vertex()
-get_vertex()
-update_vertex_info()
-get_vertex_information(
-    """
+
+def get_vertex(my_graph, vid):
+        if vid not in my_graph["vertices"]:
+            return None
+        else:
+            return my_graph["vertices"][vid]["info"]
+            
+
+def update_vertex_info(my_graph, vid, new_info):
+    if vid not in my_graph["vertices"]:
+        return False
+    else:
+        return my_graph["vertices"][vid]["new_info"]
+    
+    
+def get_vertex_information (my_graph, vid):
+    if vid not in my_graph["vertices"]:
+        return None
+    else:
+        return my_graph["vertices"][vid]["info"]
+    
