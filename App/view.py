@@ -27,6 +27,7 @@
 
 import sys
 import threading
+from DataStructures.List import single_linked_list as sl
 from App import logic
 
 """
@@ -76,10 +77,61 @@ def option_one(cont):
 def option_two(cont):
     # TODO: Imprimir los resultados de la opción 2
     ...
+def _split_vertex(vertex_id):
+    """
+    '66009-109' -> ('66009', '109')
+    """
+    parts = vertex_id.split("-")
+    return parts[0], parts[1]
 
 def option_three(cont):
     # TODO: Imprimir los resultados de la opción 3
-    ...
+    """
+    Opción 3 en view:
+    - pide stop1 y stop2
+    - llama a la lógica (DFS)
+    - imprime por tramos de bus
+    """
+
+    analyzer = cont   # cont es el analyzer casi siempre
+
+    stop1 = input("Parada inicial: ")
+    stop2 = input("Parada destino: ")
+
+    print("\n... OPCIÓN 3 (DFS)")
+    print(f"Parada inicial: '{stop1}'")
+    print(f"Parada destino: '{stop2}'\n")
+
+    route = logic.get_route_between_stops_dfs(analyzer, stop1, stop2)
+
+    if route is None or sl.size(route) == 0:
+        print("No existe ruta entre las paradas dadas.\n")
+        return
+
+    node = route["first"]
+
+    stop_code, bus = _split_vertex(node["info"])
+    current_bus = bus
+    current_chain = [stop_code]
+
+    print(f"Tomar bus '{current_bus}' desde '{stop_code}'\n")
+
+    node = node["next"]
+
+    while node is not None:
+        stop_code, bus_now = _split_vertex(node["info"])
+
+        if bus_now == current_bus:
+            current_chain.append(stop_code)
+        else:
+            print(" -> ".join(current_chain) + "\n")
+            print(f"Cambiar a bus '{bus_now}' en la parada '{stop_code}'\n")
+            current_bus = bus_now
+            current_chain = [stop_code]
+
+        node = node["next"]
+
+    print(" -> ".join(current_chain) + "\n")
 
 def option_four(cont):
     # TODO: Imprimir los resultados de la opción 4
