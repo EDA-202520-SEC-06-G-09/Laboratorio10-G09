@@ -83,7 +83,14 @@ def option_three(cont):
 
 def option_four(cont):
     # TODO: Imprimir los resultados de la opción 4
-    ...
+    print("\nBuscar ruta entre las dos paradas ingresadas")
+    
+    stop1 = input("Ingrese la primera parada: ")
+    stop2 = input("Ingrese la segunda parada: ")
+    
+    
+    print("\nBuscando ruta entre las dos paradas....")
+    
 
 def option_five(cont):
     # TODO: Imprimir los resultados de la opción 5
