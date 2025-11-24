@@ -31,6 +31,8 @@
 from DataStructures.List import single_linked_list as lt
 from DataStructures.Map import map_linear_probing as m
 from DataStructures.Graph import digraph as G
+from DataStructures.Graph import dfs as dfs_alg
+from DataStructures.Stack import stack as st
 
 import csv
 import time
@@ -136,6 +138,8 @@ def total_stops(analyzer):
     """
     Total de paradas de autobus en el grafo
     """
+    grafo = analyzer["connections"]
+    return G.order(grafo)
     # TODO: Retorne el número de vértices del grafo
 
 
@@ -145,7 +149,6 @@ def total_connections(analyzer):
     """
     # TODO: Retorne el número de arcos del grafo de conexiones
     grafo = analyzer["connections"]
-    
     return G.size(grafo)
 
 
@@ -257,12 +260,36 @@ def get_most_concurrent_stops(analyzer):
     # TODO: Obtener las 5 paradas más concurridas, es decir, con más arcos salientes
     ...
 
+
+    # TODO: Obtener la ruta entre dos parada usando dfs
+    
 def get_route_between_stops_dfs(analyzer, stop1, stop2):
     """
-    Obtener la ruta entre dos parada usando dfs
+    Obtiene la ruta entre dos paradas usando DFS.
+    Retorna una lista (lt) con el camino stop1 → stop2.
+    Si no hay camino, retorna None.
     """
-    # TODO: Obtener la ruta entre dos parada usando dfs
-    ...
+
+    grafo = analyzer["connections"]
+
+    # 1. Ejecutar DFS desde stop1
+    search = dfs_alg.dfs(grafo, stop1)
+
+    # 2. Revisar si stop2 es alcanzable
+    if not dfs_alg.has_path_to(search, stop2):
+        return None
+
+    # 3. Obtener la pila con el camino stop2 -> stop1
+    path_stack = dfs_alg.path_to(search, stop2)
+
+    # 4. Convertir la pila a lista en orden correcto
+    route = lt.new_list()
+
+    while not st.is_empty(path_stack):
+        current = st.pop(path_stack)
+        lt.add_last(route, current)
+
+    return route
 
 def get_route_between_stops_bfs(analyzer, stop1, stop2):
     """
