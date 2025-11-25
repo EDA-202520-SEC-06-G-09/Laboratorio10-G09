@@ -158,13 +158,24 @@ def improve_priority(my_heap, value, new_priority):
 
     # actualizar prioridad
     entrada = al.get_element(my_heap["elements"], pos)
+    old_priority = pq.get_priority(entrada)
     pq.set_priority(entrada, new_priority)
     al.change_info(my_heap["elements"], pos, entrada)
 
     # reubicar (subir si mejoró; si no, bajar)
-    swim(my_heap, pos)
-    sink(my_heap, pos)
-
+    tipo = my_heap["type"]
+    
+    if tipo == "MIN":
+        if new_priority < old_priority:
+            swim(my_heap, pos)
+        elif new_priority > old_priority:
+            sink(my_heap, pos)
+    else:  # MAX heap
+        if new_priority > old_priority:
+            swim(my_heap, pos)
+        elif new_priority < old_priority:
+            sink(my_heap, pos)
+    
     # devolver posición final
     for i in range(1, my_heap["size"] + 1):
         if pq.get_value(al.get_element(my_heap["elements"], i)) == value and \
