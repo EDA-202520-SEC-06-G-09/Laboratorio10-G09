@@ -28,7 +28,8 @@
 import sys
 import threading
 from DataStructures.List import single_linked_list as sl
-from App import logic
+from App import logic as l 
+from DataStructures.List import array_list as al
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -67,9 +68,9 @@ def print_menu():
 
 def option_one(cont):
     print("\nCargando información de transporte de singapur ....")
-    logic.load_services(cont, servicefile, stopsfile)
-    numedges = logic.total_connections(cont)
-    numvertex = logic.total_stops(cont)
+    l.load_services(cont, servicefile, stopsfile)
+    numedges = l.total_connections(cont)
+    numvertex = l.total_stops(cont)
     print('Numero de vertices: ' + str(numvertex))
     print('Numero de arcos: ' + str(numedges))
     print('El limite de recursion actual: ' + str(sys.getrecursionlimit()))
@@ -102,7 +103,7 @@ def option_three(cont):
     print(f"Parada inicial: '{stop1}'")
     print(f"Parada destino: '{stop2}'\n")
 
-    route = logic.get_route_between_stops_dfs(analyzer, stop1, stop2)
+    route = l.get_route_between_stops_dfs(analyzer, stop1, stop2)
 
     if route is None or sl.size(route) == 0:
         print("No existe ruta entre las paradas dadas.\n")
@@ -135,14 +136,30 @@ def option_three(cont):
 
 def option_four(cont):
     # TODO: Imprimir los resultados de la opción 4
-    print("\nBuscar ruta entre las dos paradas ingresadas")
-    
-    stop1 = input("Ingrese la primera parada: ")
-    stop2 = input("Ingrese la segunda parada: ")
-    
-    
-    print("\nBuscando ruta entre las dos paradas....")
-    
+    stop1 = input("Ingrese la parada de origen: ").strip()
+    stop2 = input("Ingrese la parada de destino: ").strip()
+
+    ruta = l.get_route_between_stops_bfs(cont, stop1, stop2)
+
+    if ruta is None:
+        print(f"\nNo existe un camino desde '{stop1}' hasta '{stop2}'.\n")
+        return
+
+    print(f"\nRuta encontrada desde '{stop1}' hasta '{stop2}':\n")
+
+    size = al.size(ruta)
+
+    # Construir el string directamente DESDE route
+    ruta_string = ""
+    for i in range(1, size + 1):
+        stop = al.get_element(ruta, i)
+        if i < size:
+            ruta_string += stop + " -> "
+        else:
+            ruta_string += stop  # última sin flecha
+
+    print(ruta_string)
+
 
 def option_five(cont):
     # TODO: Imprimir los resultados de la opción 5
@@ -166,7 +183,7 @@ def main():
 
         if int(inputs[0]) == 1:
             print("\nInicializando....")
-            cont = logic.new_analyzer()
+            cont = l.new_analyzer()
             option_one(cont)
         elif int(inputs[0]) == 2:
             option_two(cont)

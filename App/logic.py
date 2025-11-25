@@ -303,9 +303,14 @@ def get_route_between_stops_bfs(analyzer, stop1, stop2):
     if not bfs.has_path_to(stop2, visitado_mp):
         return None
     else:
-        ruta = bfs.path_to(stop2, visitado_mp)
+        pila = bfs.path_to(stop2, visitado_mp)
+        route = lt.new_list()
 
-        return ruta
+        while not st.is_empty(pila):
+            current = st.pop(pila)
+            lt.add_last(route, current)
+
+        return route
 
 
 def get_shortest_route_between_stops(analyzer, stop1, stop2):
