@@ -83,7 +83,14 @@ def is_empty(my_list):
         vacia = True
     return vacia
 
-
+def default_function(el1, el2):
+    if el1 == el2:
+        return 0
+    elif el1>el2:
+        return 1
+    return -1
+    
+    
 def last_element(my_list):
     if is_empty(my_list):
         raise Exception('IndexError: list index out of range')
