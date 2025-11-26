@@ -93,7 +93,7 @@ def remove_node(node, key):
         node["value"] = bs.get_value(temp)
         node["right"] = delete_min_tree(node["right"])  # ya la tienes también
         
-    node["size"] = 1 + size(node["left"]) + size(node["right"])
+    node["size"] = 1 + size_tree(node["left"]) + size_tree(node["right"])
 
     return node      
         
@@ -144,6 +144,8 @@ def value_set_tree(lista,root):
     
         
 def size(my_bst):
+    if my_bst is None or my_bst["root"] is None:
+        return 0
     return size_tree(my_bst["root"])
 
 def size_tree(root):
@@ -182,7 +184,7 @@ def delete_max_tree(root):
         return root["left"]
     
     root["right"] = delete_max_tree(root["right"])
-    root["size"] = 1 + size(root["left"]) + size(root["right"])
+    root["size"] = 1 + size_tree(root["left"]) + size_tree(root["right"])
     
     return root
 
@@ -268,7 +270,7 @@ def delete_min_tree(node):
     if node.get("left") is None:
         return node.get("right")
     node["left"] = delete_min_tree(node["left"])
-    node["size"] = 1 + size(node["left"]) + size(node["right"])
+    node["size"] = 1 + size_tree(node["left"]) + size_tree(node["right"])
     return node
 
         

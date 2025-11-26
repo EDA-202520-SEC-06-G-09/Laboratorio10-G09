@@ -15,8 +15,8 @@ def dequeue(my_queue):
 def peek(my_queue):
     if sll.is_empty(my_queue):
         return None
-    # first_element devuelve el NODO, por eso meto el info
-    return sll.first_element(my_queue)["info"]
+    
+    return sll.first_element(my_queue)
 
 def size(my_queue):
     return sll.size(my_queue)

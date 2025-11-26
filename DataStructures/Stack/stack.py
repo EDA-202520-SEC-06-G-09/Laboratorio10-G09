@@ -17,7 +17,7 @@ def is_empty(my_stack):
     return sl.is_empty(my_stack)
 
 def top(my_stack):
-    return sl.first_element(my_stack)["info"]
+    return sl.first_element(my_stack)
 
 def size(my_stack):
     return sl.size(my_stack)
