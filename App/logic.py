@@ -277,6 +277,10 @@ def get_route_between_stops_dfs(analyzer, stop1, stop2):
     # 1. Ejecutar DFS desde stop1
     search = dfs_alg.dfs(grafo, stop1)
 
+    # Si stop1 no existe en el grafo
+    if search is None:
+        return None
+
     # 2. Revisar si stop2 es alcanzable
     if not dfs_alg.has_path_to(search, stop2):
         return None
