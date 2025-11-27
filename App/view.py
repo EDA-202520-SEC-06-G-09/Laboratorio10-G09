@@ -30,6 +30,7 @@ import threading
 from DataStructures.List import single_linked_list as sl
 from App import logic as l 
 from DataStructures.List import array_list as al
+from DataStructures.Stack import stack as s
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -164,6 +165,25 @@ def option_four(cont):
 def option_five(cont):
     # TODO: Imprimir los resultados de la opción 5
     ...
+    stop1 = input("Ingrese la parada de origen: ").strip()
+    stop2 = input("Ingrese la parada de destino: ").strip()
+    
+    ruta = l.get_shortest_route_between_stops(cont,stop1,stop2)
+    ruta_string = ""
+    
+    size = s.size(ruta)
+
+    # Construir el string directamente DESDE route
+    ruta_string = ""
+    for i in range(1, size + 1):
+        stop = s.pop(ruta)
+        if i < size:
+            ruta_string += stop + " -> "
+        else:
+            ruta_string += stop  # última sin flecha
+
+    print(ruta_string)
+        
 
 def option_six(cont):
     # (Opcional) TODO: Imprimir los resultados de la opción 6

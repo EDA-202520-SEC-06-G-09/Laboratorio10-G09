@@ -34,6 +34,9 @@ from DataStructures.Graph import digraph as G
 from DataStructures.Graph import dfs as dfs_alg
 from DataStructures.Stack import stack as st
 from DataStructures.Graph import bfs as bfs
+from DataStructures.Graph import djkstra as djk
+
+
 
 import csv
 import time
@@ -320,6 +323,17 @@ def get_shortest_route_between_stops(analyzer, stop1, stop2):
     # TODO: Obtener la ruta mínima entre dos paradas
     # Nota: Tenga en cuenta que el debe guardar en la llave
     #       analyzer['paths'] el resultado del algoritmo de Dijkstra
+    
+    estructura = djk.dijkstra(analyzer["connections"],stop1)
+    analyzer["paths"] = estructura
+    if estructura is None:
+        analyzer["paths"] = None
+        return None 
+    ruta = djk.path_to(stop2,estructura)
+    
+    return ruta
+    
+    
     ...
 
 def show_calculated_shortest_route(analyzer, destination_stop):
