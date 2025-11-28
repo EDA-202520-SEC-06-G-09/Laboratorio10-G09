@@ -34,12 +34,7 @@ from DataStructures.Graph import digraph as G
 from DataStructures.Graph import dfs as dfs_alg
 from DataStructures.Stack import stack as st
 from DataStructures.Graph import bfs as bfs
-<<<<<<< HEAD
-=======
 from DataStructures.Graph import djkstra as djk
-
-
->>>>>>> f51a23fa4a166eca73e174e10d7f73bc977afd2b
 from DataStructures.List import array_list as al
 
 import csv
