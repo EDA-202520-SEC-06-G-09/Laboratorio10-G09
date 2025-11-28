@@ -34,6 +34,7 @@ from DataStructures.Graph import digraph as G
 from DataStructures.Graph import dfs as dfs_alg
 from DataStructures.Stack import stack as st
 from DataStructures.Graph import bfs as bfs
+from DataStructures.List import array_list as al
 
 import csv
 import time
@@ -259,8 +260,45 @@ def get_most_concurrent_stops(analyzer):
     Obtiene las 5 paradas más concurridas
     """
     # TODO: Obtener las 5 paradas más concurridas, es decir, con más arcos salientes
-    ...
 
+    """
+    Obtiene las 5 paradas (BusStopCode) más concurridas,
+    es decir, aquellas cuyos vértices asociados tienen más
+    arcos salientes en total.
+    Retorna una lista (lt) donde cada elemento es un diccionario:
+    """
+
+    grafo = analyzer["connections"]
+    vertices = G.vertices(grafo)
+
+    if vertices is None or al.size(vertices) == 0:
+        return lt.new_list()
+
+    stats = []
+
+    n = al.size(vertices)
+    i = 0
+    while i < n:
+        v_id = al.get_element(vertices, i)
+        deg = G.degree(grafo, v_id)
+
+        stats.append({
+            "vertex": v_id,
+            "degree": deg
+        })
+
+        i += 1
+
+    stats.sort(key=lambda x: x["degree"], reverse=True)
+
+    # Convertir los 5 primeros a una lista del TAD
+    top5 = lt.new_list()
+    i = 0
+    while i < len(stats) and i < 5:    # sin break
+        lt.add_last(top5, stats[i])
+        i += 1
+
+    return top5
 
     # TODO: Obtener la ruta entre dos parada usando dfs
     

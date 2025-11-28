@@ -77,7 +77,31 @@ def option_one(cont):
 
 def option_two(cont):
     # TODO: Imprimir los resultados de la opción 2
-    ...
+    
+    print("\n------ OPCION 2 ------")
+    print("Las paradas mas concurridas son:")
+
+    top5 = l.get_most_concurrent_stops(cont)
+
+    if top5 is None or sl.size(top5) == 0:
+        print("No hay informacion de paradas cargada.\n")
+        return
+
+    nodo = top5["first"]
+    pos = 1
+
+    while nodo is not None and pos <= 5:   # SIN break
+        info = nodo["info"]
+        vertex_id = info["vertex"]
+        degree = info["degree"]
+
+        print(f"{pos}. '{vertex_id}': {degree} conexiones")
+
+        nodo = nodo["next"]
+        pos += 1
+
+    print()
+    
 def _split_vertex(vertex_id):
     """
     '66009-109' -> ('66009', '109')
