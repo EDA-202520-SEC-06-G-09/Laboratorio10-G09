@@ -34,6 +34,12 @@ from DataStructures.Graph import digraph as G
 from DataStructures.Graph import dfs as dfs_alg
 from DataStructures.Stack import stack as st
 from DataStructures.Graph import bfs as bfs
+<<<<<<< HEAD
+=======
+from DataStructures.Graph import djkstra as djk
+
+
+>>>>>>> f51a23fa4a166eca73e174e10d7f73bc977afd2b
 from DataStructures.List import array_list as al
 
 import csv
@@ -314,6 +320,10 @@ def get_route_between_stops_dfs(analyzer, stop1, stop2):
     # 1. Ejecutar DFS desde stop1
     search = dfs_alg.dfs(grafo, stop1)
 
+    # Si stop1 no existe en el grafo
+    if search is None:
+        return None
+
     # 2. Revisar si stop2 es alcanzable
     if not dfs_alg.has_path_to(search, stop2):
         return None
@@ -332,23 +342,25 @@ def get_route_between_stops_dfs(analyzer, stop1, stop2):
 
 def get_route_between_stops_bfs(analyzer, stop1, stop2):
     """
-    Obtener la ruta entre dos parada usando bfs
+    Obtener la ruta entre dos paradas usando BFS.
     """
     
-    grafo =  analyzer["connections"]
+    grafo = analyzer["connections"]
     visitado_mp = bfs.bfs(grafo, stop1)
-    
+
     if not bfs.has_path_to(stop2, visitado_mp):
         return None
-    else:
-        pila = bfs.path_to(stop2, visitado_mp)
-        route = lt.new_list()
+    
+    pila = bfs.path_to(stop2, visitado_mp)
+    
+    route = al.new_list()
 
-        while not st.is_empty(pila):
-            current = st.pop(pila)
-            lt.add_last(route, current)
+    while not st.is_empty(pila):
+        current = st.pop(pila)
+        al.add_last(route, current)
 
-        return route
+    return route
+
 
 
 def get_shortest_route_between_stops(analyzer, stop1, stop2):
@@ -358,6 +370,17 @@ def get_shortest_route_between_stops(analyzer, stop1, stop2):
     # TODO: Obtener la ruta mínima entre dos paradas
     # Nota: Tenga en cuenta que el debe guardar en la llave
     #       analyzer['paths'] el resultado del algoritmo de Dijkstra
+    
+    estructura = djk.dijkstra(analyzer["connections"],stop1)
+    analyzer["paths"] = estructura
+    if estructura is None:
+        analyzer["paths"] = None
+        return None 
+    ruta = djk.path_to(stop2,estructura)
+    
+    return ruta
+    
+    
     ...
 
 def show_calculated_shortest_route(analyzer, destination_stop):

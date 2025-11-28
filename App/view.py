@@ -30,6 +30,7 @@ import threading
 from DataStructures.List import single_linked_list as sl
 from App import logic as l 
 from DataStructures.List import array_list as al
+from DataStructures.Stack import stack as s
 
 """
 La vista se encarga de la interacción con el usuario.
@@ -159,35 +160,66 @@ def option_three(cont):
     print(" -> ".join(current_chain) + "\n")
 
 def option_four(cont):
-    # TODO: Imprimir los resultados de la opción 4
-    stop1 = input("Ingrese la parada de origen: ").strip()
-    stop2 = input("Ingrese la parada de destino: ").strip()
+    stop1 = input("Ingrese la parada de origen: ").strip().replace("'", "")
+    stop2 = input("Ingrese la parada de destino: ").strip().replace("'", "")
 
     ruta = l.get_route_between_stops_bfs(cont, stop1, stop2)
 
     if ruta is None:
         print(f"\nNo existe un camino desde '{stop1}' hasta '{stop2}'.\n")
         return
+    else:
 
-    print(f"\nRuta encontrada desde '{stop1}' hasta '{stop2}':\n")
+        print(f"\nRuta encontrada desde '{stop1}' hasta '{stop2}':\n")
 
-    size = al.size(ruta)
+        size = al.size(ruta)
+
+        primero = al.get_element(ruta, 0)
+        stop_code, current_bus = primero.split("-")
+
+        print(f"\nTomar bus '{current_bus}' desde '{stop_code}'\n")
+
+        current_chain = [stop_code]
+
+        
+        for i in range(0, size):   
+            parada = al.get_element(ruta, i)
+            stop_code, bus_now = parada.split("-")
+
+            if bus_now == current_bus:
+                current_chain.append(stop_code)
+
+            else:
+                print(" -> ".join(current_chain) + "\n")
+                print(f"Cambiar a bus '{bus_now}' en la parada '{stop_code}'\n")
+                current_bus = bus_now
+                current_chain = [stop_code]
+
+        print(" -> ".join(current_chain) + "\n")
+
+
+def option_five(cont):
+    # TODO: Imprimir los resultados de la opción 5
+    ...
+    stop1 = input("Ingrese la parada de origen: ").strip()
+    stop2 = input("Ingrese la parada de destino: ").strip()
+    
+    ruta = l.get_shortest_route_between_stops(cont,stop1,stop2)
+    ruta_string = ""
+    
+    size = s.size(ruta)
 
     # Construir el string directamente DESDE route
     ruta_string = ""
     for i in range(1, size + 1):
-        stop = al.get_element(ruta, i)
+        stop = s.pop(ruta)
         if i < size:
             ruta_string += stop + " -> "
         else:
             ruta_string += stop  # última sin flecha
 
     print(ruta_string)
-
-
-def option_five(cont):
-    # TODO: Imprimir los resultados de la opción 5
-    ...
+        
 
 def option_six(cont):
     # (Opcional) TODO: Imprimir los resultados de la opción 6
